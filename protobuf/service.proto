@@ -1,0 +1,22 @@
+syntax = "proto3";
+option go_package = "github.com/Mantelijo/grpc-file-stream/internal/gen;";
+
+
+message FileChunk {
+  bytes data = 1;
+}
+
+message FileChunkResponse{
+    string message = 1;
+    FileChunkResponseStatus status = 2;
+}
+
+enum FileChunkResponseStatus{
+    ok = 0;
+    error = 1;
+}
+
+
+service FileUploader {
+  rpc UploadFile(stream FileChunk) returns (FileChunkResponse);
+}
